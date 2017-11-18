@@ -1,0 +1,15 @@
+<h3>YouTube link analysis</h3>
+<form (ngSubmit)="embed()">
+  <div>
+    <input [(ngModel)]="videoLink" placeholder="Paste link here" type="text" [ngModelOptions]="{standalone: true}"/>
+    <button type="submit">Embed video from link</button>
+  </div>
+</form>
+<div>
+  <div *ngIf="showVideo">
+    <iframe width="560" height="315" [src]="safeUrl" frameborder="0" allowfullscreen></iframe>
+  </div>
+  <div *ngIf="error">
+    <iframe width="560" height="315" [src]="safeUrl" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
