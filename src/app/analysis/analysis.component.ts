@@ -26,7 +26,6 @@ export class AnalysisComponent implements OnInit {
   ) {}
 
   embed(): void {
-    console.log("videoLink =", this.videoLink);
     this.error = null;
 
     if (!this.videoLink){
@@ -42,19 +41,14 @@ export class AnalysisComponent implements OnInit {
     this.cachedUrl = this.videoLink;
     this.showVideo = false;
 
-    console.log("this.analysisService.analyzeUrl(this.videoLink) =", this.analysisService.analyzeUrl(this.videoLink));
-
     if (!this.analysisService.analyzeUrl(this.videoLink)){
       this.error = 'Invalid or unsupported link format';
       return;
     }
     const videoId = this.analysisService.parseUrl(this.videoLink);
 
-    console.log("videoId =", videoId);
-
     if (videoId) {
       this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + videoId);
-      console.log("this.safeUrl =", this.safeUrl);
       this.showVideo = true;
     } else {
       this.error = 'Invalid video ID';

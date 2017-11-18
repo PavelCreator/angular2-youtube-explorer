@@ -1,23 +1,28 @@
-import { NgModule }      from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms'; // <-- NgModel lives here
-import { AppRoutingModule }  from './app-routing.module';
+import { NgModule }             from '@angular/core';
+import { BrowserModule }        from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule }          from '@angular/forms'; // <-- NgModel lives here
+import { HttpModule }           from '@angular/http';
 
-import { AppComponent }        from './app.component';
+import { AppRoutingModule }     from './app-routing.module';
 
-import { DataService }         from './services/data.service';
+import { AppComponent }         from './app.component';
 
-import { AnalysisService }         from './analysis/analysis.service';
-import { SearchService }         from './search/search.service';
+import { DataService }          from './services/data.service';
+import { YouTubeService }       from './services/youtube.service';
 
-import { AnalysisComponent }         from './analysis/analysis.component';
-import { SearchComponent }         from './search/search.component';
+import { AnalysisService }      from './analysis/analysis.service';
+import { SearchService }        from './search/search.service';
+
+import { AnalysisComponent }    from './analysis/analysis.component';
+import { SearchComponent }      from './search/search.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    ReactiveFormsModule,
+    AppRoutingModule,
+    HttpModule
   ],
   declarations: [
     AppComponent,
@@ -26,6 +31,7 @@ import { SearchComponent }         from './search/search.component';
   ],
   providers: [
     DataService,
+    YouTubeService,
     AnalysisService,
     SearchService
   ],

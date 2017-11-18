@@ -1,15 +1,20 @@
-<h3>YouTube link analysis</h3>
-<form (ngSubmit)="embed()">
-  <div>
-    <input [(ngModel)]="videoLink" placeholder="Paste link here" type="text" [ngModelOptions]="{standalone: true}"/>
-    <button type="submit">Embed video from link</button>
-  </div>
-</form>
-<div>
-  <div *ngIf="showVideo">
-    <iframe width="560" height="315" [src]="safeUrl" frameborder="0" allowfullscreen></iframe>
-  </div>
-  <div *ngIf="error">
-    <iframe width="560" height="315" [src]="safeUrl" frameborder="0" allowfullscreen></iframe>
-  </div>
+<h3 class="text-center">YouTube video search</h3>
+<div class="form-group">
+  <label for="link">Search query:</label>
+  <input [formControl]="search" placeholder="Insert search query here" type="text" class="form-control" id="link">
 </div>
+<ol class="list-group" *ngIf="results">
+  <li class="list-group-item" *ngFor="let video of results | async">
+    <h4>{{video.snippet.title}}</h4>
+    <p>{{video.snippet.description}}</p>
+
+    <div  class="video-wrapper">
+      <img [src]="video.snippet.thumbnails.high.url"
+           (click)="video.show = true"
+           *ngIf="!video.show"
+           class="video-preview"
+      />
+      <iframe *ngIf="video.show" width="560" height="315" [src]="video.safeUrl" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </li>
+</ol>

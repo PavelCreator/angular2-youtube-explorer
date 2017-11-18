@@ -1,48 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { BrowserModule } from '@angular/platform-browser';
-import { SearchService } from './search.service';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+
+import { YouTubeService } from '../services/youtube.service';
+
+import 'rxjs/Rx';
 
 @Component({
   selector: 'my-search',
+  providers: [ YouTubeService ],
   templateUrl: './search.component.html',
   styleUrls: [ './search.component.css' ]
 })
 
 export class SearchComponent implements OnInit {
-  safeUrl: SafeResourceUrl;
-  videoLink: string;
-  showVideo: boolean = false;
-  error: string;
-  cachedUrl: string;
+  search = new FormControl();
+  results: Observable<any>;
 
-  constructor(
-    private sanitizer: DomSanitizer,
-    private searchService: SearchService
-  ) {}
+  constructor(public youtube: YouTubeService) {
 
-  embed(): void {
-    console.log("videoLink =", this.videoLink);
-    this.error = null;
+    //observable of results
+    this.results =
+      //input value change observable
+      this.search.valueChanges
+        .debounceTime(200) //debounce for 200ms
+        .switchMap(query => youtube.search(query));
 
-    if (this.cachedUrl && this.cachedUrl === this.videoLink){
-      this.error = 'You entered the same URL';
-    }
-    this.cachedUrl = this.videoLink;
-    this.showVideo = false;
-
-
-    if (this.searchService.analyzeUrl(this.videoLink) === null){
-      this.error = 'Invalid or unsupported link format';
-      return;
-    }
-    const videoId = this.searchService.parseUrl(this.videoLink);
-    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+videoId);
-
-    console.log("this.safeUrl =", this.safeUrl);
-
-    this.showVideo = true;
+    //switchMap flattens the async and cancels the pending request if a new value is requested
   }
-  /*this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(videoURL);*/
   ngOnInit(): void {}
 }
