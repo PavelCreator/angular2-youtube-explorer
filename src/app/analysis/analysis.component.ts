@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { AnalysisService } from './analysis.service';
 import { DataService } from '../services/data.service';
 
@@ -28,6 +29,7 @@ export class AnalysisComponent implements OnInit {
   embed(): void {
     this.error = null;
 
+    /*Step 1 - Validation*/
     if (!this.videoLink){
       this.error = 'Please enter Youtube video URL';
       return;
@@ -38,15 +40,18 @@ export class AnalysisComponent implements OnInit {
       return;
     }
 
-    this.cachedUrl = this.videoLink;
+    this.cachedUrl = this.videoLink; //cache video URL for preventing duplication query
     this.showVideo = false;
 
+    /*Step 2 - Analysis*/
     if (!this.analysisService.analyzeUrl(this.videoLink)){
       this.error = 'Invalid or unsupported link format';
       return;
     }
+    /*Step 3 - Parsing video ID*/
     const videoId = this.analysisService.parseUrl(this.videoLink);
 
+    /*Step 4 - Show video in iframe*/
     if (videoId) {
       this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + videoId);
       this.showVideo = true;
@@ -56,6 +61,7 @@ export class AnalysisComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    /*Get url types from service*/
     this.urlTypes = this.dataService.getUrlTypes();
   }
 }

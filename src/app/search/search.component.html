@@ -3,18 +3,23 @@
   <label for="link">Search query:</label>
   <input [formControl]="search" placeholder="Insert search query here" type="text" class="form-control" id="link">
 </div>
+
 <ol class="list-group" *ngIf="results">
   <li class="list-group-item" *ngFor="let video of results | async">
     <h4>{{video.snippet.title}}</h4>
     <p>{{video.snippet.description}}</p>
 
     <div  class="video-wrapper">
+      <!--
+      the simultaneous embedding of 50 iframes heavily loads the client, so the user is given thumbnails,
+      and when clicking on a thumbnail, a video is uploaded
+      -->
       <img [src]="video.snippet.thumbnails.high.url"
            (click)="video.show = true"
            *ngIf="!video.show"
            class="video-preview"
       />
-      <iframe *ngIf="video.show" width="560" height="315" [src]="video.safeUrl" frameborder="0" allowfullscreen></iframe>
+      <iframe *ngIf="video.show" [src]="video.safeUrl" frameborder="0" allowfullscreen></iframe>
     </div>
   </li>
 </ol>

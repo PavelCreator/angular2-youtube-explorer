@@ -14,13 +14,15 @@
   </div>
 </form>
 <div>
+  <!-- Errors handler -->
   <div *ngIf="error" class="error-wrapper">
     <div class="alert alert-danger">
       <strong>Warning!</strong> {{error}}
     </div>
   </div>
+  <!-- Video -->
   <div *ngIf="showVideo" class="video-wrapper">
-    <iframe width="560" height="315" [src]="safeUrl" frameborder="0" allowfullscreen></iframe>
+    <iframe [src]="safeUrl" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 <div class="formats">

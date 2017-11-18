@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class DataService {
+
+  /*YouTube url types*/
   private urlTypes: String[] = [
     'http://www.youtube.com/watch?v=6QjIHnb5Ivs',
     'https://www.youtube.com/watch?v=6QjIHnb5Ivs',
@@ -22,7 +24,8 @@ export class DataService {
     'http://www.youtube.com/attribution_link?u=/watch?v=6QjIHnb5Ivs&feature=share&a=9QlmP1yvjcllp0h3l0NwuA',
     'http://www.youtube.com/attribution_link?a=fF1CWYwxCQ4&u=/watch?v=6QjIHnb5Ivs&feature=em-uploademail',
     'http://www.youtube.com/attribution_link?a=fF1CWYwxCQ4&feature=em-uploademail&u=/watch?v=6QjIHnb5Ivs'
-  ]
+  ];
+
   getUrlTypes(): String[] {
     return this.urlTypes;
   }
