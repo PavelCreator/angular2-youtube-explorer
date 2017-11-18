@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { BrowserModule } from '@angular/platform-browser';
 import { AnalysisService } from './analysis.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'my-analysis',
@@ -10,14 +11,17 @@ import { AnalysisService } from './analysis.service';
 })
 
 export class AnalysisComponent implements OnInit {
+
   safeUrl: SafeResourceUrl;
   videoLink: string;
   showVideo: boolean = false;
   error: string;
   cachedUrl: string;
+  urlTypes: String[];
 
   constructor(
     private sanitizer: DomSanitizer,
+    private dataService: DataService,
     private analysisService: AnalysisService
   ) {}
 
@@ -25,24 +29,39 @@ export class AnalysisComponent implements OnInit {
     console.log("videoLink =", this.videoLink);
     this.error = null;
 
+    if (!this.videoLink){
+      this.error = 'Please enter Youtube video URL';
+      return;
+    }
+
     if (this.cachedUrl && this.cachedUrl === this.videoLink){
       this.error = 'You entered the same URL';
+      return;
     }
+
     this.cachedUrl = this.videoLink;
     this.showVideo = false;
 
+    console.log("this.analysisService.analyzeUrl(this.videoLink) =", this.analysisService.analyzeUrl(this.videoLink));
 
-    if (this.analysisService.analyzeUrl(this.videoLink) === null){
+    if (!this.analysisService.analyzeUrl(this.videoLink)){
       this.error = 'Invalid or unsupported link format';
       return;
     }
     const videoId = this.analysisService.parseUrl(this.videoLink);
-    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+videoId);
 
-    console.log("this.safeUrl =", this.safeUrl);
+    console.log("videoId =", videoId);
 
-    this.showVideo = true;
+    if (videoId) {
+      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + videoId);
+      console.log("this.safeUrl =", this.safeUrl);
+      this.showVideo = true;
+    } else {
+      this.error = 'Invalid video ID';
+    }
+
   }
-  /*this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(videoURL);*/
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.urlTypes = this.dataService.getUrlTypes();
+  }
 }

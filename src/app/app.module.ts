@@ -4,8 +4,14 @@ import { FormsModule }   from '@angular/forms'; // <-- NgModel lives here
 import { AppRoutingModule }  from './app-routing.module';
 
 import { AppComponent }        from './app.component';
-import { AnalysisService }         from './analysis.service';
-import { AnalysisComponent }         from './analysis.component';
+
+import { DataService }         from './services/data.service';
+
+import { AnalysisService }         from './analysis/analysis.service';
+import { SearchService }         from './search/search.service';
+
+import { AnalysisComponent }         from './analysis/analysis.component';
+import { SearchComponent }         from './search/search.component';
 
 @NgModule({
   imports: [
@@ -15,10 +21,13 @@ import { AnalysisComponent }         from './analysis.component';
   ],
   declarations: [
     AppComponent,
-    AnalysisComponent
+    AnalysisComponent,
+    SearchComponent
   ],
   providers: [
-    AnalysisService
+    DataService,
+    AnalysisService,
+    SearchService
   ],
   bootstrap: [ AppComponent ]
 })
