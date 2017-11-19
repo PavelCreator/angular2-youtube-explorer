@@ -9,6 +9,7 @@
   <li>application through the YouTube API when a user enters a <b>search phrase on the fly</b> searches for 50 videos that satisfies the search phrase, also removes channels from the general YouTube search output</li>
   <li><b>response design</b> using Bootstrap 4</li>
   <li>2 components - analysis and search, 2 services, YouTube video response interface, routing</li>
+  <li><b>validation</b> that takes into account an empty string, a repeating request, invalid link format</li>
   <li>functions of the services are documented according to the <b>JSDoc</b> format, almost all complex moments are accompanied by <b>comments</b></li>
 </ul>
 
