@@ -4,18 +4,18 @@
 
 <h3>Details:</h3>
 <ul>
-  <li>written on Angular v4.3.6</li>
-  <li>application analyzes 19 variations of YouTube links and embeds video on the page</li>
-  <li>application through the YouTube API when a user enters a search phrase on the fly searches for 50 videos that satisfies the search phrase, also removes channels from the general YouTube search output</li>
-  <li>response design using Bootstrap 4</li>
-  <li>2 components - analysis and search, 2 services, Youtube video response interface, routing</li>
-  <li>functions of the services are documented according to the JSDoc format, almost all complex moments are accompanied by comments</li>
+  <li>written on <b>Angular v4.3.6</b></li>
+  <li>application analyzes <b>19 variations</b> of YouTube links and embeds video on the page</li>
+  <li>application through the YouTube API when a user enters a <b>search phrase on the fly</b> searches for 50 videos that satisfies the search phrase, also removes channels from the general YouTube search output</li>
+  <li><b>response design</b> using Bootstrap 4</li>
+  <li>2 components - analysis and search, 2 services, YouTube video response interface, routing</li>
+  <li>functions of the services are documented according to the <b>JSDoc</b> format, almost all complex moments are accompanied by <b>comments</b></li>
 </ul>
 
 <h3>To start the application in development mode</h3>
 <ul>
   <li>download or clone repo</li>
   <li>install <b>node</b> & <b>npm</b></li>
-  <li>enter <b>npm install/b> to install node_modules</li>
-  <li>enter <b>npm start/b> to start application</li>
+  <li>enter <b>npm install</b> to install node_modules</li>
+  <li>enter <b>npm start</b> to start application</li>
 </ul>
