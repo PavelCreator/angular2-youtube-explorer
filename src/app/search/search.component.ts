@@ -27,12 +27,12 @@ export class SearchComponent implements OnInit {
       .distinctUntilChanged()           // only emit when the current value is different than the last
       .switchMap((query: string) => {   // map to observable, complete previous inner observable, emit values
         if (query) {
-          this.loading = true;          //add spinner
+          this.loading = true;          // add spinner
         }
         return youtube.search(query);
       })
       .subscribe(
-        (searchResults) => {     // success handling
+        (searchResults) => {            // success handling
           this.results = searchResults; // show video-results
           this.loading = false;         // remove spinner
         }, (err: Error) => {
