@@ -17,14 +17,27 @@ import 'rxjs/Rx';
 
 export class SearchComponent implements OnInit {
   search = new FormControl();
-  results: Observable<YouTubeVideo[]>;
+  loading: boolean = false;
+  results: YouTubeVideo[];
 
   constructor(public youtube: YouTubeService) {
-    //observable of results
-    this.results = this.search.valueChanges //input value change observable
-      .debounceTime(200) //debounce for 200ms
-      .switchMap(query => youtube.search(query));
-    //switchMap aligns the asynchronous mode and cancels the pending request if a new value is requested
+
+    this.search.valueChanges            // input value change observable
+      .debounceTime(200)                // debounce for 200ms
+      .distinctUntilChanged()           // only emit when the current value is different than the last
+      .switchMap((query: string) => {   // map to observable, complete previous inner observable, emit values
+        if (query) {
+          this.loading = true;          //add spinner
+        }
+        return youtube.search(query);
+      })
+      .subscribe(
+        (searchResults) => {     // success handling
+          this.results = searchResults; // show video-results
+          this.loading = false;         // remove spinner
+        }, (err: Error) => {
+          console.log(err);             // error handling
+        });
   }
   ngOnInit(): void {}
 }

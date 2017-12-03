@@ -1,3 +1,12 @@
 .video-preview{
   cursor: pointer;
 }
+.spinner{
+  position:absolute;
+  right:6px;
+  bottom:5px;
+  font-size:17px;
+}
+.spinner-container{
+  position: relative;
+}
