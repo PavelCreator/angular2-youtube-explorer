@@ -1,30 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <title>Youtube Angular explorer</title>
-    <base href="/">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- Polyfill(s) for older browsers -->
-    <script src="node_modules/core-js/client/shim.min.js"></script>
-
-    <script src="node_modules/zone.js/dist/zone.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-
-    <script src="systemjs.config.js"></script>
-    <script>
-      System.import('main.js').catch(function(err){ console.error(err); });
-    </script>
-  </head>
-
-  <body>
-    <div class="container">
-      <my-app>Loading AppComponent content here ...</my-app>
-    </div>
-  </body>
-
+<head>
+  <title>Youtube Angular explorer</title>
+  <base href="/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <div class="container">
+    <app-angular-youtube-explorer>Loading application content here ...</app-angular-youtube-explorer>
+  </div>
+</body>
 </html>

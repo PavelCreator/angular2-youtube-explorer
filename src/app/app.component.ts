@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-angular-youtube-explorer',
   styleUrls: ['./app.component.css'],
   templateUrl: './app.component.html'
 })
